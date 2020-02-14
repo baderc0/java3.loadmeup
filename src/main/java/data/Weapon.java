@@ -10,5 +10,41 @@ package data;
  * @author andrei
  */
 public class Weapon {
+    private String code;
+    private String description;
+    double weight;
     
+    public Weapon() {
+        
+    }
+    
+    public Weapon(String code, String description, double weight) {
+        this.code = code;
+        this.description = description;
+        this.weight = weight;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public double getWeight() {
+        return weight;
+    }
+
+    public void setWeight(double weight) {
+        this.weight = weight;
+    }
 }
