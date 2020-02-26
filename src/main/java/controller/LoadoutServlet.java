@@ -5,6 +5,7 @@
  */
 package controller;
 
+import data.LineItem;
 import data.Weapon;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -31,14 +32,53 @@ public class LoadoutServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        ArrayList<Weapon> weapons = new ArrayList();
         
       
         HttpSession session = request.getSession();
-        synchronized(session){
+        String name;
+        String weight;
+        
+        //Loadout loadout = new Loadout();
+        ArrayList<LineItem> list;
+        ArrayList<Weapon> weapons;
+        synchronized (session) {
+            list = (ArrayList<LineItem>)session.getAttribute("list");
             weapons = (ArrayList<Weapon>)session.getAttribute("weapons");
+            name = (String)session.getAttribute("name");
+            weight = (String)session.getAttribute("weight");
         }
-        request.getParameter("remove");
+        
+        
+        
+        if (list == null){
+            list = new ArrayList<>();
+            for (Weapon weapon : weapons) {
+                list.add(new LineItem(weapon,0));
+            }
+        }
+        if (request.getParameter("add") != null){
+            String code = request.getParameter("add");
+            for(LineItem item : list){
+                if (item.getWeapon().getCode().equalsIgnoreCase(code)){
+                    item.setQuantity(item.getQuantity()+1);
+                }
+            }
+        }
+        if (request.getParameter("remove") != null){
+            String code = request.getParameter("remove");
+            for(LineItem item : list){
+                if (item.getWeapon().getCode().equalsIgnoreCase(code)){
+                    item.setQuantity(item.getQuantity()-1);
+                }
+            }
+        }
+        
+        
+
+        synchronized (session) {
+            session.setAttribute("list", list);
+        }
+        getServletContext().getRequestDispatcher("/loadout.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

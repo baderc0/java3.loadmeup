@@ -18,10 +18,10 @@ public class LineItem {
         
     }
 
-    public LineItem(Weapon weapon, int quantity, double totalWeight) {
+    public LineItem(Weapon weapon, int quantity) {
         this.weapon = weapon;
         this.quantity = quantity;
-        this.totalWeight = totalWeight;
+        this.totalWeight = this.weapon.getWeight()*quantity;
     }
 
     public Weapon getWeapon() {
@@ -30,6 +30,7 @@ public class LineItem {
 
     public void setWeapon(Weapon weapon) {
         this.weapon = weapon;
+        this.setQuantity(this.quantity);
     }
 
     public int getQuantity() {
@@ -38,6 +39,7 @@ public class LineItem {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+        this.totalWeight = this.weapon.getWeight()*quantity;
     }
 
     public double getTotalWeight() {
