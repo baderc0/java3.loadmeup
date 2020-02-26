@@ -11,6 +11,10 @@
     <servlet>
         <servlet-name>SignUpServlet</servlet-name>
         <servlet-class>controller.SignUpServlet</servlet-class>
+        <init-param>
+            <param-name>filepath</param-name>
+            <param-value>weapons.txt</param-value>
+        </init-param>
     </servlet>
     <servlet-mapping>
         <servlet-name>CheckoutServlet</servlet-name>
@@ -22,7 +26,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>SignUpServlet</servlet-name>
-        <url-pattern>/signupservlet</url-pattern>
+        <url-pattern>/SignUpservlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

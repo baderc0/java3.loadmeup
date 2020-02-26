@@ -15,15 +15,17 @@ import java.util.Scanner;
  * @author andrei
  */
 public class WeaponIO {
-    public static ArrayList<Weapon> getWeapons(String filepath) 
+
+    public static ArrayList<Weapon> getWeapons(String filepath)
             throws IOException {
         ArrayList<Weapon> weapons = new ArrayList();
         File file = new File(filepath);
         Scanner read = new Scanner(file);
-        while(read.hasNextLine()){
+        while (read.hasNextLine()) {
             String[] tokens = read.nextLine().split("|");
             weapons.add(new Weapon(tokens[0], tokens[1], Double.parseDouble(tokens[2])));
         }
-    return weapons;
+        read.close();
+        return weapons;
     }
 }

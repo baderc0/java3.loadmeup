@@ -1,0 +1,6 @@
+AK-47|Mid-Range Assault Rifle (AK-47)|15.45
+MP7|Fast-Firing Machine Gun (MP5)|18.75
+M19|Semi-auto 9mm Pistol (M19)|6.22
+RPG-7|Rocket Launcher (RPG-7)|23.54
+EBR-14|Marksman Rifle (EBR-14)|17.24
+RM75|75 Round Mags (RM75)|9.25
