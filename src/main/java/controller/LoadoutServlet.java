@@ -6,8 +6,10 @@
 package controller;
 
 import data.LineItem;
+import data.Loadout;
 import data.Weapon;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -32,51 +34,53 @@ public class LoadoutServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-      
+
         HttpSession session = request.getSession();
         String name;
         String weight;
-        
-        //Loadout loadout = new Loadout();
+
+        // create empty loadout
+        Loadout loadout;
         ArrayList<LineItem> list;
         ArrayList<Weapon> weapons;
-        synchronized (session) {
-            list = (ArrayList<LineItem>)session.getAttribute("list");
-            weapons = (ArrayList<Weapon>)session.getAttribute("weapons");
-            name = (String)session.getAttribute("name");
-            weight = (String)session.getAttribute("weight");
-        }
-        
-        
-        
-        if (list == null){
-            list = new ArrayList<>();
-            for (Weapon weapon : weapons) {
-                list.add(new LineItem(weapon,0));
-            }
-        }
-        if (request.getParameter("add") != null){
-            String code = request.getParameter("add");
-            for(LineItem item : list){
-                if (item.getWeapon().getCode().equalsIgnoreCase(code)){
-                    item.setQuantity(item.getQuantity()+1);
-                }
-            }
-        }
-        if (request.getParameter("remove") != null){
-            String code = request.getParameter("remove");
-            for(LineItem item : list){
-                if (item.getWeapon().getCode().equalsIgnoreCase(code)){
-                    item.setQuantity(item.getQuantity()-1);
-                }
-            }
-        }
-        
-        
 
         synchronized (session) {
-            session.setAttribute("list", list);
+            loadout = (Loadout) session.getAttribute("loadout");
+            weapons = (ArrayList<Weapon>) session.getAttribute("weapons");
+            name = (String) session.getAttribute("name");
+            weight = (String) session.getAttribute("weight");
+        }
+
+        if (loadout == null) { // if there doesn't exist a loadout from session attribute aka. first time using
+            loadout = new Loadout(); // create empty loadout
+        }
+
+        if (request.getParameter("add") != null) { // add is pressed
+            String addCode = request.getParameter("addCode");            
+            // creating LineItem from code
+            LineItem weapon = null;
+            for (int i = 0; i < weapons.size(); i++) {
+                if (weapons.get(i).getCode().equalsIgnoreCase(addCode)) { // if codes match
+                    weapon = new LineItem(weapons.get(i), 1);
+                }
+            }
+            loadout.addItem(weapon);
+        }
+
+        if (request.getParameter("remove") != null) {
+            String removeCode = request.getParameter("removeCode");
+            LineItem weapon = null;
+            for (int i = 0; i < weapons.size(); i++) {
+                if (weapons.get(i).getCode().equalsIgnoreCase(removeCode)) { // if codes match
+                    weapon = new LineItem(weapons.get(i), 1);
+                }
+            }
+            loadout.removeItem(weapon);
+            
+        }
+
+        synchronized (session) {
+            session.setAttribute("loadout", loadout);
         }
         getServletContext().getRequestDispatcher("/loadout.jsp").forward(request, response);
     }

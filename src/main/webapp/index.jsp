@@ -15,7 +15,7 @@
     <body>
         <div id="main-div">
             <div id="sign-up-text"><h1>Sign Up</h1></div>
-            <form action="signupservlet" method="POST">
+            <form action="SignUpServlet" method="POST">
                 <p>Full Name: <input type="text" name="fullName" value="" required /></p>
                 <p>Weight: <input type="number" name="weight" value="" required /></p>
                 <div><input type="submit" value="Load Me Up" /></div>

@@ -21,7 +21,7 @@ public class LineItem {
     public LineItem(Weapon weapon, int quantity) {
         this.weapon = weapon;
         this.quantity = quantity;
-        this.totalWeight = this.weapon.getWeight()*quantity;
+        this.totalWeight = this.weapon.getWeight() * this.quantity;
     }
 
     public Weapon getWeapon() {
@@ -49,6 +49,12 @@ public class LineItem {
     public void setTotalWeight(double totalWeight) {
         this.totalWeight = totalWeight;
     }
+
+    @Override
+    public String toString() {
+        return "LineItem{" + "weapon=" + weapon + ", quantity=" + quantity + ", totalWeight=" + totalWeight + '}';
+    }
+    
     
     
 }
