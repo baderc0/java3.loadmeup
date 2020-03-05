@@ -36,7 +36,17 @@ public class SignUpServlet extends HttpServlet {
         String url = "/loadout.jsp";
         String name = request.getParameter("fullName").trim();
         String weight = request.getParameter("weight").trim();
-
+        
+        // server-side validation
+        try {
+            Double.parseDouble(weight); // checking to see if weight is a Double
+            if (name.isBlank() || name.isEmpty()) {
+                throw new IllegalArgumentException();
+            }
+        } catch (Exception e) {
+            
+        }
+        
         ArrayList<Weapon> weapons = new ArrayList<>();
         weapons = WeaponIO.getWeapons(filepath);
         

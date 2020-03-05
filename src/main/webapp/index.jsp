@@ -8,10 +8,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
-    <c:if test="${not empty name}">
-        <h1>Name: ${name}
-        Weight: ${weight}</h1>
-        </c:if>
     <head>
         <link rel="stylesheet" href="styles/main.css" type="text/css" />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -21,8 +17,8 @@
         <div id="main-div">
             <div id="sign-up-text"><h1>Sign Up</h1></div>
             <form action="SignUpServlet" method="POST">
-                <p>Full Name: <input type="text" name="fullName" value="" required /></p>
-                <p>Weight: <input type="number" name="weight" value="" required /></p>
+                <p>Full Name: <input type="text" name="fullName" value="${name}" required /></p>
+                <p>Weight: <input type="number" name="weight" value="${weight}" required /></p>
                 <div><input type="submit" value="Load Me Up" /></div>
             </form>
         </div>

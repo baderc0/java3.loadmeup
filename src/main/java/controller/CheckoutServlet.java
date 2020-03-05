@@ -6,6 +6,7 @@
 package controller;
 
 import java.io.IOException;
+import java.net.URLEncoder;
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
@@ -36,9 +37,12 @@ public class CheckoutServlet extends HttpServlet {
         Cookie nameCookie;
         Cookie weightCookie;
         synchronized(session){
-            nameCookie = new Cookie("name",(String) session.getAttribute("name"));
+            String name = (String) session.getAttribute("name");
+            String nameEncode = URLEncoder.encode(name, "UTF-8");
+            nameCookie = new Cookie("name", nameEncode);
             weightCookie = new Cookie("weight", (String) session.getAttribute("weight"));
         }
+        
         
 
         request.setAttribute("name", nameCookie.getValue());

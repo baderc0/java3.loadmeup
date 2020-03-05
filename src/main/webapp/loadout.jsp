@@ -48,7 +48,7 @@
         <form method="POST" action="LoadoutServlet">
             <c:if test="${empty loadout.items}">
                 <h2>You don't have any weapons. <h2><br>
-                    </c:if>
+            </c:if>
                     <c:if test="${not empty loadout.items}">       
                         <table style="border: 1px solid black">
                             <tr>
@@ -83,18 +83,25 @@
                     </c:if>
                     </form>
 
-                    <h2>Total Weight: 
+                <c:if test="${loadout.getTotalWeight() gt 0}">
+                     <h2>Total Weight: 
                         <fmt:formatNumber type="number" 
                                           minFractionDigits="2"
                                           maxFractionDigits="2" 
-                                          value="${loadout.getTotalWeight()}"/>kg
+                                          value="${loadout.getTotalWeight()}"/>kg    
+                        <c:if test="${loadout.getTotalWeight() gt weight}">
+                            <span> (Overweight)</span>
                     </h2>
-                        <c:if test="${loadout.getTotalWeight() le weight and loadout.getTotalWeight() > 0}">
+                </c:if>
+                </c:if>
+                   
+                        <c:if test="${loadout.getTotalWeight() le weight and loadout.getTotalWeight() gt 0}">
                             <form action="CheckoutServlet" method="POST">
                                 <input type="submit" value="Checkout" />
                             </form>
                              
                         </c:if>
+                
                               
                     </body>
                     </html>
