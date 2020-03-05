@@ -11,7 +11,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Loadout</title>
     </head>
     <body>
         <form action="LoadoutServlet" method="POST">
@@ -90,7 +90,10 @@
                                           value="${loadout.getTotalWeight()}"/>kg
                     </h2>
                         <c:if test="${loadout.getTotalWeight() le weight and loadout.getTotalWeight() > 0}">
-                             <input type="submit" value="Checkout" />
+                            <form action="CheckoutServlet" method="POST">
+                                <input type="submit" value="Checkout" />
+                            </form>
+                             
                         </c:if>
                               
                     </body>
